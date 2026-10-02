@@ -249,4 +249,5 @@
 <string name="btn_report_bug">الإبلاغ عن خطأ</string>
 <string name="btn_sponsor">دعم المشروع</string>
 <string name="btn_check_for_updates">التحقق من التحديثات</string>
+    <string name="cd_change_language">تغيير اللغة</string>
 </resources>
