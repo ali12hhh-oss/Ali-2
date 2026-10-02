@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="btnText" type="id" />
+    <item name="btnMediaOverlay" type="id" />
+    <item name="btnDraw" type="id" />
+    <item name="btnAudio" type="id" />
+    <item name="btnCrop" type="id" />
+    <item name="btnSubtitles" type="id" />
+    <item name="btnVoiceOver" type="id" />
+    <item name="btnCanvasBackground" type="id" />
+    <item name="editingControlsScroll" type="id" />
+    <item name="editingControlsWrapper" type="id" />
+    
+    <item name="textEditingToolbar" type="id" />
+    <item name="imageEditingToolbar" type="id" />
+    <item name="videoEditingToolbar" type="id" />
+    <item name="speedEditingToolbar" type="id" />
+    <item name="audioEditingToolbar" type="id" />
+    <item name="cropEditingToolbar" type="id" />
+    <item name="subtitlesEditingToolbar" type="id" />
+    <item name="keyframeEditingToolbar" type="id" />
+    <item name="backgroundEditingToolbar" type="id" />
+</resources>

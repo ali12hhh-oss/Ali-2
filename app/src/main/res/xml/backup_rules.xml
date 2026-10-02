@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Drafts reference device-local content grants and cache paths that cannot survive
+  restore onto another device; excluding them avoids shipping dead projects.
+-->
+<full-backup-content>
+    <exclude domain="file" path="drafts" />
+    <exclude domain="file" path="incoming" />
+</full-backup-content>

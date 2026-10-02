@@ -1,0 +1,142 @@
+plugins {
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.compose.compiler)
+}
+
+apply plugin: 'com.mikepenz.aboutlibraries.plugin'
+
+aboutLibraries {
+    excludeFields = ["generated"]
+}
+
+android {
+    namespace 'com.tharunbirla.librecuts'
+    compileSdk 34
+
+    def keystorePropsFile = rootProject.file("keystore.properties")
+    def keystoreProps = new Properties()
+    if (keystorePropsFile.exists()) {
+        keystorePropsFile.withInputStream { keystoreProps.load(it) }
+    }
+
+    signingConfigs {
+        if (keystorePropsFile.exists()) {
+            release {
+                storeFile rootProject.file(keystoreProps['storeFile'])
+                storePassword keystoreProps['storePassword']
+                keyAlias keystoreProps['keyAlias']
+                keyPassword keystoreProps['keyPassword']
+            }
+        }
+    }
+
+    androidResources {
+        generateLocaleConfig = true
+    }
+
+    lint {
+        disable 'UseAppTint', 'MissingTranslation', 'ExtraTranslation'
+    }
+
+    defaultConfig {
+        applicationId "com.tharunbirla.librecuts"
+        minSdk 26
+        targetSdk 34
+        versionCode project.hasProperty('versionCode') ? project.property('versionCode').toInteger() : 11
+        versionName "1.0-beta8"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary true
+        }
+    }
+
+    sourceSets {
+        main {
+            assets.srcDirs = ['src/main/assets']
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.findByName('release')
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+    buildFeatures {
+        viewBinding true
+        compose true
+    }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+
+    packaging {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
+    }
+
+    splits {
+        abi {
+            enable true
+            reset()
+            include 'armeabi-v7a', 'arm64-v8a', 'x86_64'
+            universalApk false
+        }
+    }
+
+    applicationVariants.all { variant ->
+        def abiCodes = ['armeabi-v7a': 0, 'arm64-v8a': 1, 'x86_64': 2]
+
+        variant.outputs.each { output ->
+            def abi = output.getFilter(com.android.build.OutputFile.ABI)
+            if (abi != null && abiCodes.containsKey(abi)) {
+                output.versionCodeOverride = variant.versionCode + abiCodes.get(abi)
+            }
+        }
+    }
+}
+
+dependencies {
+    def composeBom = platform(libs.androidx.compose.bom)
+    implementation(composeBom)
+    androidTestImplementation(composeBom)
+
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.compose.ui)
+    implementation(libs.androidx.compose.ui.graphics)
+    implementation(libs.androidx.compose.ui.tooling.preview)
+    implementation(libs.androidx.compose.material3)
+    debugImplementation(libs.androidx.compose.ui.tooling)
+
+    implementation 'com.google.android.exoplayer:exoplayer-core:2.19.1'
+    implementation 'com.google.android.exoplayer:exoplayer-ui:2.19.1'
+    implementation("com.antonkarpenko:ffmpeg-kit-full-gpl:2.1.0")
+    implementation 'com.google.android.material:material:1.9.0'
+    implementation 'com.airbnb.android:lottie:3.4.0'
+    implementation "com.mikepenz:aboutlibraries-core:11.2.3"
+    implementation "com.mikepenz:aboutlibraries:11.2.3"
+    implementation libs.androidx.core.ktx
+    implementation libs.androidx.lifecycle.runtime.ktx
+    implementation libs.androidx.lifecycle.viewmodel.ktx
+    implementation libs.androidx.appcompat
+    implementation libs.androidx.constraintlayout
+    implementation libs.androidx.recyclerview
+    testImplementation libs.junit
+    testImplementation 'org.mockito:mockito-core:5.11.0'
+    androidTestImplementation libs.androidx.junit
+    androidTestImplementation libs.androidx.espresso.core
+    implementation 'com.google.code.gson:gson:2.10.1'
+}
