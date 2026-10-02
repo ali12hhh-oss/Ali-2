@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:fontFamily="sans-serif-medium"
-            android:text="Canvas Background"
+            android:text="@string/canvas_background"
             android:textColor="@color/textColor"
             android:textSize="18sp" />
 
@@ -91,7 +91,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Color"
+                    android:text="@string/color"
                     android:textColor="@color/toolTextInactive"
                     android:textSize="11sp" />
             </LinearLayout>
@@ -122,7 +122,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Blur"
+                    android:text="@string/blur"
                     android:textColor="@color/toolTextInactive"
                     android:textSize="11sp" />
             </LinearLayout>
@@ -152,7 +152,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Image"
+                    android:text="@string/image"
                     android:textColor="@color/toolTextInactive"
                     android:textSize="11sp" />
             </LinearLayout>
