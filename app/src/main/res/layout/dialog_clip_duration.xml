@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:fontFamily="sans-serif-medium"
-            android:text="Clip Duration"
+            android:text="@string/clip_duration"
             android:textColor="@color/textColor"
             android:textSize="18sp" />
 
@@ -65,7 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="5.0s"
+            android:text="@string/duration_5s"
             android:textColor="@color/colorPrimary"
             android:textSize="32sp"
             android:fontFamily="sans-serif-bold"
@@ -88,7 +88,7 @@
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="wrap_content"
                     android:layout_height="36dp"
-                    android:text="1s"
+                    android:text="@string/duration_1s"
                     android:textSize="12sp"
                     android:layout_marginEnd="8dp"
                     app:cornerRadius="18dp" />
@@ -98,7 +98,7 @@
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="wrap_content"
                     android:layout_height="36dp"
-                    android:text="2s"
+                    android:text="@string/duration_2s"
                     android:textSize="12sp"
                     android:layout_marginEnd="8dp"
                     app:cornerRadius="18dp" />
@@ -108,7 +108,7 @@
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="wrap_content"
                     android:layout_height="36dp"
-                    android:text="3s"
+                    android:text="@string/duration_3s"
                     android:textSize="12sp"
                     android:layout_marginEnd="8dp"
                     app:cornerRadius="18dp" />
@@ -128,7 +128,7 @@
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="wrap_content"
                     android:layout_height="36dp"
-                    android:text="10s"
+                    android:text="@string/duration_10s"
                     android:textSize="12sp"
                     android:layout_marginEnd="8dp"
                     app:cornerRadius="18dp" />
@@ -138,7 +138,7 @@
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="wrap_content"
                     android:layout_height="36dp"
-                    android:text="15s"
+                    android:text="@string/duration_15s"
                     android:textSize="12sp"
                     android:layout_marginEnd="8dp"
                     app:cornerRadius="18dp" />
@@ -148,7 +148,7 @@
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="wrap_content"
                     android:layout_height="36dp"
-                    android:text="30s"
+                    android:text="@string/duration_30s"
                     android:textSize="12sp"
                     app:cornerRadius="18dp" />
             </LinearLayout>
