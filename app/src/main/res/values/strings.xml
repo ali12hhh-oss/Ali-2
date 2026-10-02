@@ -407,4 +407,11 @@
     <string name="crash_log">Crash Log</string>
     <string name="crash_log_copied">Full crash log copied to clipboard!</string>
     <string name="browser_failed_log_copied">Could not open browser. Log copied to clipboard!</string>
+    <string name="duration_total">%1$s Total</string>
+    <string name="clips_count">%1$d clips</string>
+    <string name="items_count">%1$d items</string>
+    <string name="files_count">%1$d files</string>
+    <string name="font_delete_dynamic">Are you sure you want to delete &apos;%1$s&apos;?</string>
+    <string name="trim_range">%1$s - %2$s</string>
+    <string name="duration_range">%1$s - %2$s (%3$s)</string>
 </resources>
