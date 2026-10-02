@@ -406,4 +406,11 @@
     <string name="crash_log">سجل الأعطال</string>
     <string name="crash_log_copied">تم نسخ سجل الأعطال الكامل إلى الحافظة!</string>
     <string name="browser_failed_log_copied">تعذر فتح المتصفح. تم نسخ السجل إلى الحافظة!</string>
+    <string name="duration_total">%1$s الإجمالي</string>
+    <string name="clips_count">%1$d مقاطع</string>
+    <string name="items_count">%1$d عناصر</string>
+    <string name="files_count">%1$d ملفات</string>
+    <string name="font_delete_dynamic">هل أنت متأكد من حذف &apos;%1$s&apos;؟</string>
+    <string name="trim_range">%1$s - %2$s</string>
+    <string name="duration_range">%1$s - %2$s (%3$s)</string>
 </resources>
