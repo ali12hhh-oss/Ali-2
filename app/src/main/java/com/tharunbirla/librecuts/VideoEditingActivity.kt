@@ -374,7 +374,7 @@ class VideoEditingActivity : AppCompatActivity() {
                     onDelete = { fontItem ->
                         MaterialAlertDialogBuilder(this)
                             .setTitle(R.string.delete_font)
-                            .setMessage("Are you sure you want to delete '${fontItem.name}'?")
+                            .setMessage(getString(R.string.font_delete_dynamic, fontItem.name))
                             .setPositiveButton("Delete") { _, _ ->
                                 if (com.tharunbirla.librecuts.utils.FontManager.deleteCustomFont(this, fontItem.path)) {
                                     Toast.makeText(this, getString(R.string.font_deleted), Toast.LENGTH_SHORT).show()
@@ -1765,7 +1765,7 @@ class VideoEditingActivity : AppCompatActivity() {
                 val tvTrimValue = toolbar.findViewById<TextView>(R.id.tvAudioTrimValues)
                 
                 trimTrack?.onTrimChanged = { startMs, endMs, _ ->
-                    tvTrimValue?.text = "${formatDuration(startMs.toInt())} - ${formatDuration(endMs.toInt())}"
+                    tvTrimValue?.text = getString(R.string.trim_range, formatDuration(startMs.toInt()), formatDuration(endMs.toInt()))
                     viewModel.selectedOperationId.value?.let { id ->
                         val project = viewModel.project.value ?: return@let
                         val op = project.operations.find { it is com.tharunbirla.librecuts.models.EditOperation.AddBackgroundAudio && it.id == id } as? com.tharunbirla.librecuts.models.EditOperation.AddBackgroundAudio
@@ -3944,7 +3944,7 @@ class VideoEditingActivity : AppCompatActivity() {
                 val initialEndMs = endMs.coerceAtMost(op.internalStartMs + seqDuration)
                 trimTrack?.setRange(op.originalDurationMs, op.internalStartMs, initialEndMs)
                 
-                tvTrimValue?.text = "${formatDuration(op.internalStartMs.toInt())} - ${formatDuration(endMs.toInt())}"
+                tvTrimValue?.text = getString(R.string.trim_range, formatDuration(op.internalStartMs.toInt()), formatDuration(endMs.toInt()))
                 
                 // Extract waveform
                 if (trimTrack != null) {
@@ -5261,7 +5261,7 @@ class VideoEditingActivity : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (androidx.core.content.ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) != android.content.pm.PackageManager.PERMISSION_GRANTED) {
                 androidx.core.app.ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.POST_NOTIFICATIONS), 101)
-                android.widget.Toast.makeText(this, "Please grant notification permission and try exporting again.", android.widget.Toast.LENGTH_LONG).show()
+                android.widget.Toast.makeText(this, getString(R.string.permission_export), android.widget.Toast.LENGTH_LONG).show()
                 return
             }
         }
@@ -7740,7 +7740,7 @@ class VideoEditingActivity : AppCompatActivity() {
 
         fun updateTimeText(start: Long, end: Long) {
             val duration = end - start
-            tvDurationDisplay.text = "${formatDuration(start.toInt())} - ${formatDuration(end.toInt())} (${formatDuration(duration.toInt())})"
+            tvDurationDisplay.text = getString(R.string.duration_range, formatDuration(start.toInt()), formatDuration(end.toInt()), formatDuration(duration.toInt()))
         }
         updateTimeText(item.trimStartMs, item.trimEndMs)
 
