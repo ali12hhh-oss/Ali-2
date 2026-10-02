@@ -101,7 +101,7 @@ class MediaPickerBottomSheet : BottomSheetDialogFragment() {
         } else {
             pbLoading.visibility = View.GONE
             layoutEmptyContainer.visibility = View.VISIBLE
-            tvEmptyState.text = "Permission denied. Grant access or browse folders."
+            tvEmptyState.text = getString(R.string.permission_denied_media)
             btnGrantPermission.visibility = View.VISIBLE
         }
     }
@@ -269,8 +269,8 @@ class MediaPickerBottomSheet : BottomSheetDialogFragment() {
         val count = selectedItems.size
         if (count > 0 && isMultiSelect) {
             layoutBottomImportBar.visibility = View.VISIBLE
-            tvSelectedCount.text = "$count item${if (count > 1) "s" else ""} selected"
-            btnImportSelected.text = "Import ($count)"
+            tvSelectedCount.text = getString(R.string.items_selected, count, if (count > 1) "s" else "")
+            btnImportSelected.text = getString(R.string.import_count, count)
         } else {
             layoutBottomImportBar.visibility = View.GONE
         }
@@ -384,7 +384,7 @@ class MediaPickerBottomSheet : BottomSheetDialogFragment() {
 
         if (displayedItems.isEmpty()) {
             layoutEmptyContainer.visibility = View.VISIBLE
-            tvEmptyState.text = "No media files found."
+            tvEmptyState.text = getString(R.string.no_media_files)
         } else {
             layoutEmptyContainer.visibility = View.GONE
         }
