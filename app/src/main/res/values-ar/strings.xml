@@ -346,14 +346,14 @@
     <string name="files_missing_replace">هناك %1$d ملف مفقود. اضغط على المقاطع أدناه لاستبدالها.</string>
     <string name="could_not_open_project">تعذر فتح المشروع</string>
     <string name="delete_font">حذف الخط</string>
-    <string name="delete_font_msg">هل أنت متأكد من حذف &apos;%1$s&apos;؟</string>
+    <string name="delete_font_msg">هل أنت متأكد من حذف الخط %1$s؟</string>
     <string name="font_deleted">تم حذف الخط</string>
     <string name="failed_delete_font">فشل حذف الخط</string>
     <string name="font_preview">أبجد هوز حطي 123</string>
     <string name="custom_badge">مخصص</string>
     <string name="project_saved">تم حفظ المشروع بنجاح</string>
     <string name="failed_save_project">فشل حفظ المشروع</string>
-    <string name="font_imported">تم استيراد الخط &apos;%1$s&apos;</string>
+    <string name="font_imported">تم استيراد الخط %1$s</string>
     <string name="failed_import_font">فشل استيراد ملف الخط. يجب أن يكون ملف .ttf أو .otf صالحًا</string>
     <string name="discard_handwriting">تجاهل الكتابة اليدوية؟</string>
     <string name="discard_drawing_msg">هل أنت متأكد من تجاهل الرسم؟</string>
@@ -410,7 +410,7 @@
     <string name="clips_count">%1$d مقاطع</string>
     <string name="items_count">%1$d عناصر</string>
     <string name="files_count">%1$d ملفات</string>
-    <string name="font_delete_dynamic">هل أنت متأكد من حذف &apos;%1$s&apos;؟</string>
+    <string name="font_delete_dynamic">هل أنت متأكد من حذف الخط %1$s؟</string>
     <string name="trim_range">%1$s - %2$s</string>
     <string name="duration_range">%1$s - %2$s (%3$s)</string>
 </resources>
