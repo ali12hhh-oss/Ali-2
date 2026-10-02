@@ -250,4 +250,5 @@
     <string name="btn_report_bug">Report a bug</string>
     <string name="btn_sponsor">Sponsor</string>
     <string name="btn_check_for_updates">Check for updates</string>
+    <string name="cd_change_language">Change language</string>
 </resources>
