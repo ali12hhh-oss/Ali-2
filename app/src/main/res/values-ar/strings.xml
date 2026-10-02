@@ -334,4 +334,7 @@
     <string name="color">اللون</string>
     <string name="blur">تمويه</string>
     <string name="image">صورة</string>
+    <string name="home">الرئيسية</string>
+    <string name="settings">الإعدادات</string>
+    <string name="about">حول</string>
 </resources>
