@@ -351,65 +351,12 @@ class MainActivity : AppCompatActivity() {
     )
 
     private fun getAvailableLanguages(): List<LanguageItem> {
-        val result = mutableListOf<LanguageItem>()
-        result.add(LanguageItem("", getString(R.string.str_system_default)))
-
-        val tags = mutableSetOf<String>()
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            try {
-                val localeConfig = android.app.LocaleConfig(this)
-                val locales = localeConfig.supportedLocales
-                if (locales != null) {
-                    for (i in 0 until locales.size()) {
-                        val locale = locales.get(i)
-                        if (locale != null) {
-                            tags.add(locale.toLanguageTag())
-                        }
-                    }
-                }
-            } catch (e: Exception) {
-                Log.e("MainActivity", "LocaleConfig error", e)
-            }
-        }
-
-        if (tags.isEmpty()) {
-            try {
-                val resId = resources.getIdentifier("_generated_res_locale_config", "xml", packageName)
-                if (resId != 0) {
-                    val parser = resources.getXml(resId)
-                    var eventType = parser.eventType
-                    while (eventType != org.xmlpull.v1.XmlPullParser.END_DOCUMENT) {
-                        if (eventType == org.xmlpull.v1.XmlPullParser.START_TAG && parser.name == "locale") {
-                            val name = parser.getAttributeValue("http://schemas.android.com/apk/res/android", "name")
-                            if (!name.isNullOrEmpty()) {
-                                tags.add(name)
-                            }
-                        }
-                        eventType = parser.next()
-                    }
-                }
-            } catch (e: Exception) {
-                Log.e("MainActivity", "XmlParser _generated_res_locale_config error", e)
-            }
-        }
-
-        if (tags.isEmpty()) {
-            tags.addAll(listOf("en", "de", "et", "sk", "pt-BR"))
-        }
-
-        val items = tags.map { tag ->
-            val locale = java.util.Locale.forLanguageTag(tag)
-            val name = when (tag.lowercase()) {
-                "pt-br" -> "Português (Brasil)"
-                "zh-cn" -> "中文 (简体)"
-                "zh-tw" -> "中文 (繁體)"
-                else -> locale.getDisplayName(locale).replaceFirstChar { if (it.isLowerCase()) it.titlecase(locale) else it.toString() }
-            }
-            LanguageItem(tag, name)
-        }.sortedBy { it.displayName.lowercase() }
-
-        result.addAll(items)
-        return result
+        // Vidora/Ali-2 currently exposes exactly two user-selectable languages.
+        // AppCompatDelegate handles persistence and applies the correct RTL/LTR layout.
+        return listOf(
+            LanguageItem("en", "English"),
+            LanguageItem("ar", "العربية")
+        )
     }
 
     // ── Media import flow ────────────────────────────────────────────────────
@@ -545,9 +492,9 @@ class MainActivity : AppCompatActivity() {
         val tvVersion = view.findViewById<android.widget.TextView>(R.id.tvOnboardingVersion)
         try {
             val pInfo = packageManager.getPackageInfo(packageName, 0)
-            tvVersion.text = "Version ${pInfo.versionName}"
+            tvVersion.text = getString(R.string.version_format, pInfo.versionName)
         } catch (_: Exception) {
-            tvVersion.text = "Version 1.0-beta4"
+            tvVersion.text = getString(R.string.version_format, "1.0-beta5")
         }
 
         view.findViewById<View>(R.id.layoutStarGithub)?.setBounceClickListener {
@@ -575,7 +522,7 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
             startActivity(intent)
         } catch (_: Exception) {
-            showToast("Unable to open link")
+            showToast(getString(R.string.toast_unable_to_open_link))
         }
     }
 
@@ -584,7 +531,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun checkForUpdates() {
-        showToast("Checking for updates in browser...")
+        showToast(getString(R.string.toast_checking_for_updates))
         openUrl("https://github.com/Vicky8106/Prodline-AI/releases/latest")
     }
 
