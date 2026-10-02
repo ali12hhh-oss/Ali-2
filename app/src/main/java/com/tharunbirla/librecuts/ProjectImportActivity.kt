@@ -108,7 +108,7 @@ class ProjectImportActivity : AppCompatActivity() {
                         val upStr = formatDuration(uploadedDurationMs)
                         com.google.android.material.dialog.MaterialAlertDialogBuilder(this@ProjectImportActivity)
                             .setTitle(R.string.clip_duration_warning)
-                            .setMessage("Selected clip ($upStr) is shorter than required ($reqStr). Do you want to use it anyway?")
+                            .setMessage(getString(R.string.clip_duration_warning_msg, upStr, reqStr))
                             .setPositiveButton("Use Anyway") { _, _ ->
                                 dep.currentUri = uri
                                 dep.isFound = true
@@ -202,7 +202,7 @@ class ProjectImportActivity : AppCompatActivity() {
         projectUri = intent.getParcelableExtra("PROJECT_URI")
         draftPath = intent.getStringExtra("DRAFT_PATH")
         if (projectUri == null && draftPath == null) {
-            Toast.makeText(this, "No project URI provided", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.no_project_uri), Toast.LENGTH_SHORT).show()
             finish()
             return
         }
@@ -245,14 +245,14 @@ class ProjectImportActivity : AppCompatActivity() {
                     }
                 } else {
                     withContext(Dispatchers.Main) {
-                        Toast.makeText(this@ProjectImportActivity, "Failed to parse project", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@ProjectImportActivity, getString(R.string.failed_parse_project), Toast.LENGTH_SHORT).show()
                         finish()
                     }
                 }
             } catch (e: Exception) {
-                Log.e(TAG, "Error loading project", e)
+                Log.e(TAG, getString(R.string.error_loading_project), e)
                 withContext(Dispatchers.Main) {
-                    Toast.makeText(this@ProjectImportActivity, "Error loading project", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@ProjectImportActivity, getString(R.string.error_loading_project), Toast.LENGTH_SHORT).show()
                     finish()
                 }
             }
@@ -442,7 +442,7 @@ class ProjectImportActivity : AppCompatActivity() {
 
         if (missingCount == 0) {
             tvOverallProgress.setTextColor(ContextCompat.getColor(this, R.color.colorSecondary))
-            tvProjectStatus.text = "All files found. Ready to edit."
+            tvProjectStatus.text = getString(R.string.all_files_ready)
             tvProjectStatus.setTextColor(ContextCompat.getColor(this, R.color.colorSecondary))
             
             btnNext.isEnabled = true
@@ -450,7 +450,7 @@ class ProjectImportActivity : AppCompatActivity() {
             btnNext.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.colorPrimary))
         } else {
             tvOverallProgress.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary))
-            tvProjectStatus.text = "$missingCount file(s) missing. Tap clips below to replace."
+            tvProjectStatus.text = getString(R.string.files_missing_replace, missingCount)
             tvProjectStatus.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary))
             
             btnNext.isEnabled = false
@@ -573,7 +573,7 @@ class ProjectImportActivity : AppCompatActivity() {
             if (throwable != null) {
                 lifecycleScope.launch(Dispatchers.Main) {
                     btnNext.isEnabled = true
-                    Toast.makeText(this@ProjectImportActivity, "Could not open project", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@ProjectImportActivity, getString(R.string.could_not_open_project), Toast.LENGTH_SHORT).show()
                 }
             }
         }
