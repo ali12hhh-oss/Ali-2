@@ -361,7 +361,10 @@ class MainActivity : AppCompatActivity() {
             LanguageItem("hi", "हिन्दी"),
             LanguageItem("pt-BR", "Português (Brasil)"),
             LanguageItem("sk", "Slovenčina"),
-            LanguageItem("ta", "தமிழ்")
+            LanguageItem("ta", "தமிழ்"),
+            LanguageItem("zh-CN", "简体中文"),
+            LanguageItem("ja", "日本語"),
+            LanguageItem("ko", "한국어")
         )
     }
 
