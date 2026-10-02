@@ -251,4 +251,7 @@
     <string name="btn_sponsor">Sponsor</string>
     <string name="btn_check_for_updates">Check for updates</string>
     <string name="cd_change_language">Change language</string>
+    <string name="version_format">Version %1$s</string>
+    <string name="toast_unable_to_open_link">Unable to open link</string>
+    <string name="toast_checking_for_updates">Checking for updates in browser…</string>
 </resources>
