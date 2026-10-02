@@ -51,11 +51,11 @@ class ErrorDisplayActivity : AppCompatActivity() {
         """.trimIndent()
 
         // Bind Views
-        findViewById<TextView>(R.id.tvErrorCode).text = "Error Code: $errorCode"
+        findViewById<TextView>(R.id.tvErrorCode).text = getString(R.string.error_code_dynamic, errorCode)
         findViewById<TextView>(R.id.tvErrorDescription).text = errorDesc
-        findViewById<TextView>(R.id.tvAppVersion).text = "App Version: $appVersion"
-        findViewById<TextView>(R.id.tvDeviceModel).text = "Device: ${Build.MANUFACTURER} ${Build.MODEL}"
-        findViewById<TextView>(R.id.tvAndroidVersion).text = "Android Version: ${Build.VERSION.RELEASE} (API ${Build.VERSION.SDK_INT})"
+        findViewById<TextView>(R.id.tvAppVersion).text = getString(R.string.app_version_dynamic, appVersion)
+        findViewById<TextView>(R.id.tvDeviceModel).text = getString(R.string.device_dynamic, Build.MANUFACTURER, Build.MODEL)
+        findViewById<TextView>(R.id.tvAndroidVersion).text = getString(R.string.android_version_dynamic, Build.VERSION.RELEASE, Build.VERSION.SDK_INT)
         findViewById<TextView>(R.id.tvErrorLog).text = errorLog
 
         findViewById<ImageButton>(R.id.btnBack).setOnClickListener {
@@ -72,13 +72,13 @@ class ErrorDisplayActivity : AppCompatActivity() {
 
         findViewById<MaterialButton>(R.id.btnCopyError).setOnClickListener {
             val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-            clipboard.setPrimaryClip(ClipData.newPlainText("Crash Log", fullDiagnosticLog))
+            clipboard.setPrimaryClip(ClipData.newPlainText(getString(R.string.crash_log), fullDiagnosticLog))
             Toast.makeText(this, R.string.toast_log_copied_to_clipboard, Toast.LENGTH_SHORT).show()
         }
 
         findViewById<MaterialButton>(R.id.btnReportGithub).setOnClickListener {
             val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-            clipboard.setPrimaryClip(ClipData.newPlainText("Crash Log", fullDiagnosticLog))
+            clipboard.setPrimaryClip(ClipData.newPlainText(getString(R.string.crash_log), fullDiagnosticLog))
 
             val issueTitle = Uri.encode("[Bug Report] $errorCode: Application Issue")
             val logSnippet = if (fullDiagnosticLog.length <= 3500) fullDiagnosticLog else fullDiagnosticLog.take(3500) + "\n... (Full log copied to clipboard)"
@@ -94,9 +94,9 @@ class ErrorDisplayActivity : AppCompatActivity() {
             val url = "https://github.com/Vicky8106/Prodline-AI/issues/new?title=$issueTitle&body=$issueBody"
             try {
                 startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
-                Toast.makeText(this, "Full crash log copied to clipboard!", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, getString(R.string.crash_log_copied), Toast.LENGTH_LONG).show()
             } catch (e: Exception) {
-                Toast.makeText(this, "Could not open browser. Log copied to clipboard.", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, getString(R.string.browser_failed_log_copied), Toast.LENGTH_LONG).show()
             }
         }
 
