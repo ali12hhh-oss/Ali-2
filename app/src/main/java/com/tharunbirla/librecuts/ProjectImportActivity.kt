@@ -269,8 +269,8 @@ class ProjectImportActivity : AppCompatActivity() {
         val totalMs = primaryDur + mergeDur
 
         val formattedDur = formatDuration(totalMs).ifEmpty { "0.0s" }
-        tvProjectDuration.text = "$formattedDur Total"
-        tvProjectClipsCount.text = "${dependencies.size} clips"
+        tvProjectDuration.text = getString(R.string.duration_total, formattedDur)
+        tvProjectClipsCount.text = getString(R.string.clips_count, dependencies.size)
     }
 
     private fun getMediaDurationMs(uri: Uri?): Long {
