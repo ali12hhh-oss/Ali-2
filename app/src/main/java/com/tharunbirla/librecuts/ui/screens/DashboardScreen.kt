@@ -99,7 +99,7 @@ fun DashboardScreen(
                 actions = {
                     IconButton(onClick = callbacks.onLanguageClick) {
                         Icon(
-                            painter = painterResource(R.drawable.ic_translate_24),
+                            painter = painterResource(R.drawable.ic_language_24),
                             contentDescription = stringResource(R.string.cd_change_language),
                             tint = MaterialTheme.colorScheme.onBackground
                         )
@@ -383,7 +383,7 @@ private fun SettingsContent(uiState: DashboardUiState, callbacks: DashboardCallb
         item { SectionLabel(stringResource(R.string.settings_editor_section)) }
         item {
             SettingRow(
-                iconRes = R.drawable.ic_translate_24,
+                iconRes = R.drawable.ic_language_24,
                 title = stringResource(R.string.btn_change_language),
                 value = uiState.languageLabel,
                 onClick = callbacks.onLanguageClick
