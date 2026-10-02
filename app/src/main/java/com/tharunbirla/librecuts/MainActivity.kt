@@ -351,11 +351,17 @@ class MainActivity : AppCompatActivity() {
     )
 
     private fun getAvailableLanguages(): List<LanguageItem> {
-        // Vidora/Ali-2 currently exposes exactly two user-selectable languages.
+        // All languages that have translation resource folders in this project.
         // AppCompatDelegate handles persistence and applies the correct RTL/LTR layout.
         return listOf(
             LanguageItem("en", "English"),
-            LanguageItem("ar", "العربية")
+            LanguageItem("ar", "العربية"),
+            LanguageItem("de", "Deutsch"),
+            LanguageItem("et", "eesti"),
+            LanguageItem("hi", "हिन्दी"),
+            LanguageItem("pt-BR", "Português (Brasil)"),
+            LanguageItem("sk", "Slovenčina"),
+            LanguageItem("ta", "தமிழ்")
         )
     }
 
