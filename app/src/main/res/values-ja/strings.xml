@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Prodline AI</string>
+    <string name="app_title">動画エディター</string>
+    <string name="home_tagline">次の編集はここから始まります。</string>
+    <string name="open_project">プロジェクトを開く</string>
+    <string name="new_project_title">新しいプロジェクト</string>
+    <string name="new_project_subtitle">動画、写真、音声を読み込んで編集を開始</string>
+    <string name="btn_open_project">プロジェクトを開く</string>
+    <string name="drafts_section">下書き</string>
+    <string name="settings">設定</string>
+    <string name="tab_home">ホーム</string>
+    <string name="tab_settings">設定</string>
+    <string name="tab_about">概要</string>
+    <string name="btn_change_language">言語</string>
+    <string name="str_app_language">アプリの言語</string>
+    <string name="str_system_default">システムのデフォルト</string>
+    <string name="str_new_project">新しいプロジェクト</string>
+    <string name="str_text">テキスト</string>
+    <string name="str_overlay">オーバーレイ</string>
+    <string name="str_audio">音声</string>
+    <string name="str_voice">ボイス</string>
+    <string name="str_subtitles">字幕</string>
+    <string name="str_crop">トリミング</string>
+    <string name="str_adjust">調整</string>
+    <string name="str_filters">フィルター</string>
+    <string name="str_speed">速度</string>
+    <string name="str_export_settings">書き出し設定</string>
+    <string name="export">書き出し</string>
+    <string name="delete">削除</string>
+    <string name="cancel">キャンセル</string>
+    <string name="done">完了</string>
+    <string name="save">保存</string>
+    <string name="str_save">保存</string>
+    <string name="str_settings">設定</string>
+    <string name="next">次へ</string>
+    <string name="apply">適用</string>
+    <string name="reset">リセット</string>
+    <string name="close">閉じる</string>
+</resources>
