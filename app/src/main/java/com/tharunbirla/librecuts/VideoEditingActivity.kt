@@ -373,16 +373,16 @@ class VideoEditingActivity : AppCompatActivity() {
                     },
                     onDelete = { fontItem ->
                         MaterialAlertDialogBuilder(this)
-                            .setTitle("Delete Font")
+                            .setTitle(R.string.delete_font)
                             .setMessage("Are you sure you want to delete '${fontItem.name}'?")
                             .setPositiveButton("Delete") { _, _ ->
                                 if (com.tharunbirla.librecuts.utils.FontManager.deleteCustomFont(this, fontItem.path)) {
-                                    Toast.makeText(this, "Font deleted", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(this, getString(R.string.font_deleted), Toast.LENGTH_SHORT).show()
                                     refreshFontList()
                                     textEditingToolbar?.findViewById<View>(R.id.formatSettingsContainer)?.let { setupTextFontSelector(it) }
                                     setupSubtitleFontSelector(subtitlesEditingToolbar)
                                 } else {
-                                    Toast.makeText(this, "Failed to delete font", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(this, getString(R.string.failed_delete_font), Toast.LENGTH_SHORT).show()
                                 }
                             }
                             .setNegativeButton("Cancel", null)
@@ -428,7 +428,7 @@ class VideoEditingActivity : AppCompatActivity() {
         override fun onBindViewHolder(holder: FontViewHolder, position: Int) {
             val font = fonts[position]
             holder.tvName.text = font.name
-            holder.tvPreview.text = "Aa The quick brown fox 123"
+            holder.tvPreview.text = getString(R.string.font_preview)
             if (font.typeface != null) {
                 holder.tvPreview.typeface = font.typeface
             } else {
@@ -437,7 +437,7 @@ class VideoEditingActivity : AppCompatActivity() {
 
             if (font.isCustom) {
                 holder.tvBadge.visibility = View.VISIBLE
-                holder.tvBadge.text = "Custom"
+                holder.tvBadge.text = getString(R.string.custom_badge)
                 holder.btnDelete.visibility = View.VISIBLE
                 holder.btnDelete.setOnClickListener { onDelete(font) }
             } else {
@@ -564,7 +564,7 @@ class VideoEditingActivity : AppCompatActivity() {
             }
             result.fold(onSuccess = {
                 viewModel.markProjectSaved()
-                Toast.makeText(this@VideoEditingActivity, "Project saved successfully", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@VideoEditingActivity, getString(R.string.project_saved), Toast.LENGTH_SHORT).show()
                 if (shouldQuitAfterSave) {
                     shouldQuitAfterSave = false
                     finish()
@@ -572,7 +572,7 @@ class VideoEditingActivity : AppCompatActivity() {
             }, onFailure = { e ->
                 Log.e(TAG, "Failed to save project", e)
                 shouldQuitAfterSave = false
-                Toast.makeText(this@VideoEditingActivity, "Failed to save project", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@VideoEditingActivity, getString(R.string.failed_save_project), Toast.LENGTH_SHORT).show()
             })
         }
     }
@@ -598,12 +598,12 @@ class VideoEditingActivity : AppCompatActivity() {
         if (uri != null) {
             val importedFont = com.tharunbirla.librecuts.utils.FontManager.importFontFromUri(this, uri)
             if (importedFont != null) {
-                Toast.makeText(this, "Font '${importedFont.name}' imported", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.font_imported, importedFont.name), Toast.LENGTH_SHORT).show()
                 textEditingToolbar?.findViewById<View>(R.id.formatSettingsContainer)?.let { setupTextFontSelector(it) }
                 setupSubtitleFontSelector(subtitlesEditingToolbar)
                 activeFontSelectionCallback?.invoke(importedFont)
             } else {
-                Toast.makeText(this, "Failed to import font file. Must be a valid .ttf or .otf", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, getString(R.string.failed_import_font), Toast.LENGTH_LONG).show()
             }
         }
     }
@@ -663,8 +663,8 @@ class VideoEditingActivity : AppCompatActivity() {
                     val canvasView = findViewById<HandwritingCanvasView>(R.id.handwritingCanvasView)
                     if (canvasView != null && !canvasView.isEmpty()) {
                         MaterialAlertDialogBuilder(this@VideoEditingActivity)
-                            .setTitle("Discard Handwriting?")
-                            .setMessage("Are you sure you want to discard your drawing?")
+                            .setTitle(R.string.discard_handwriting)
+                            .setMessage(R.string.discard_drawing_msg)
                             .setPositiveButton("Discard") { _, _ -> closeHandwritingMode() }
                             .setNegativeButton("Keep Editing", null)
                             .show()
@@ -1145,8 +1145,8 @@ class VideoEditingActivity : AppCompatActivity() {
                 }
                 toolbar.findViewById<View>(R.id.btnTextDelete)?.setBounceClickListener {
                     MaterialAlertDialogBuilder(this@VideoEditingActivity)
-                        .setTitle("Delete Text")
-                        .setMessage("Are you sure you want to delete this text overlay?")
+                        .setTitle(R.string.delete_text_title)
+                        .setMessage(R.string.delete_text_message)
                         .setPositiveButton("Delete") { _, _ ->
                             draggableTextOverlay?.deactivate()
                             viewModel.selectedOperationId.value?.let { id ->
@@ -1433,14 +1433,14 @@ class VideoEditingActivity : AppCompatActivity() {
                         ?.lastOrNull()
                     if (existing != null) {
                         viewModel.updateOperation(existing.copy(
-                            aspectRatio = "Custom",
+                            aspectRatio = getString(R.string.custom_badge),
                             xFraction = x,
                             yFraction = y,
                             wFraction = w,
                             hFraction = h
                         ))
                     } else {
-                        viewModel.addCropOperation("Custom", x, y, w, h)
+                        viewModel.addCropOperation(getString(R.string.custom_badge), x, y, w, h)
                     }
                 }
             }
@@ -1461,8 +1461,8 @@ class VideoEditingActivity : AppCompatActivity() {
                 }
                 toolbar.findViewById<View>(R.id.btnImageDelete)?.setBounceClickListener {
                     MaterialAlertDialogBuilder(this@VideoEditingActivity)
-                        .setTitle("Delete Image")
-                        .setMessage("Are you sure you want to delete this image overlay?")
+                        .setTitle(R.string.delete_image_title)
+                        .setMessage(R.string.delete_image_message)
                         .setPositiveButton("Delete") { _, _ ->
                             draggableImageOverlay?.deactivate()
                             viewModel.selectedOperationId.value?.let { id ->
@@ -1576,8 +1576,8 @@ class VideoEditingActivity : AppCompatActivity() {
                 }
                 toolbar.findViewById<ImageButton>(R.id.btnVideoDelete)?.setBounceClickListener {
                     MaterialAlertDialogBuilder(this@VideoEditingActivity)
-                        .setTitle("Delete Clip")
-                        .setMessage("Are you sure you want to delete this clip from the project?")
+                        .setTitle(R.string.delete_clip)
+                        .setMessage(R.string.delete_clip_msg)
                         .setPositiveButton("Delete") { _, _ ->
                             deleteSelectedVideo()
                         }
@@ -1692,8 +1692,8 @@ class VideoEditingActivity : AppCompatActivity() {
                 }
                 toolbar.findViewById<ImageButton>(R.id.btnAudioDelete)?.setBounceClickListener {
                     MaterialAlertDialogBuilder(this@VideoEditingActivity)
-                        .setTitle("Delete Audio")
-                        .setMessage("Are you sure you want to delete this audio track?")
+                        .setTitle(R.string.delete_audio_title)
+                        .setMessage(R.string.delete_audio_message)
                         .setPositiveButton("Delete") { _, _ ->
                             viewModel.selectedOperationId.value?.let { id ->
                                 viewModel.deleteOperation(id)
@@ -1721,7 +1721,7 @@ class VideoEditingActivity : AppCompatActivity() {
                         runOnUiThread {
                             if (beats.isNotEmpty()) {
                                 viewModel.updateOperation(op.copy(beats = beats))
-                                android.widget.Toast.makeText(this@VideoEditingActivity, "Found ${beats.size} beats!", android.widget.Toast.LENGTH_SHORT).show()
+                                android.widget.Toast.makeText(this@VideoEditingActivity, getString(R.string.found_beats, beats.size), android.widget.Toast.LENGTH_SHORT).show()
                                 toolbar.findViewById<ImageButton>(R.id.btnAudioBeats)?.setColorFilter(getColor(R.color.colorPrimary))
                             } else {
                                 android.widget.Toast.makeText(this@VideoEditingActivity, R.string.toast_no_clear_beats_found, android.widget.Toast.LENGTH_SHORT).show()
@@ -1891,7 +1891,7 @@ class VideoEditingActivity : AppCompatActivity() {
                     val y: Float
                     val w: Float
                     val h: Float
-                    if (existing != null && existing.aspectRatio == "Custom") {
+                    if (existing != null && existing.aspectRatio == getString(R.string.custom_badge)) {
                         x = existing.xFraction
                         y = existing.yFraction
                         w = existing.wFraction
@@ -1906,8 +1906,8 @@ class VideoEditingActivity : AppCompatActivity() {
                     
                     cropOverlayView?.setCropBounds(x, y, w, h)
                     cropOverlayView?.visibility = View.VISIBLE
-                    viewModel.addCropOperation("Custom", x, y, w, h)
-                    updateCropUi("Custom")
+                    viewModel.addCropOperation(getString(R.string.custom_badge), x, y, w, h)
+                    updateCropUi(getString(R.string.custom_badge))
                 }
             }
         } catch (e: Exception) {
@@ -1928,8 +1928,8 @@ class VideoEditingActivity : AppCompatActivity() {
                 }
                 toolbar.findViewById<Button>(R.id.btnDeleteSrt)?.setBounceClickListener {
                     MaterialAlertDialogBuilder(this@VideoEditingActivity)
-                        .setTitle("Delete Subtitles")
-                        .setMessage("Are you sure you want to remove the subtitles track?")
+                        .setTitle(R.string.delete_subtitles)
+                        .setMessage(R.string.delete_subtitles_msg)
                         .setPositiveButton("Delete") { _, _ ->
                             removeSubtitles()
                         }
@@ -2509,7 +2509,7 @@ class VideoEditingActivity : AppCompatActivity() {
                     getPresetCropBounds(aspectRatio)
                 }
             }
-            "Custom" -> {
+            getString(R.string.custom_badge) -> {
                 if (cropOp != null) {
                     android.graphics.RectF(
                         cropOp.xFraction,
@@ -2703,14 +2703,14 @@ class VideoEditingActivity : AppCompatActivity() {
                         if (copyResult == android.view.PixelCopy.SUCCESS) {
                             saveBitmapToGallery(bitmap)
                         } else {
-                            Toast.makeText(this, "Failed to capture frame", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this, getString(R.string.failed_capture_frame), Toast.LENGTH_SHORT).show()
                         }
                     }, android.os.Handler(android.os.Looper.getMainLooper()))
                 } catch (e: Exception) {
                     e.printStackTrace()
                     tvDuration?.visibility = durationVis
                     tvPreviewBadge?.visibility = badgeVis
-                    Toast.makeText(this, "Failed to capture frame", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, getString(R.string.failed_capture_frame), Toast.LENGTH_SHORT).show()
                 }
             } else {
                 val canvas = android.graphics.Canvas(bitmap)
@@ -2808,7 +2808,7 @@ class VideoEditingActivity : AppCompatActivity() {
             
             fos?.use {
                 bitmap.compress(android.graphics.Bitmap.CompressFormat.PNG, 100, it)
-                Toast.makeText(this, "Frame saved to gallery", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.frame_saved), Toast.LENGTH_SHORT).show()
             }
             
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q && imageUri != null) {
@@ -2816,7 +2816,7 @@ class VideoEditingActivity : AppCompatActivity() {
             }
         } catch (e: Exception) {
             e.printStackTrace()
-            Toast.makeText(this, "Failed to save frame", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.failed_save_frame), Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -2958,8 +2958,8 @@ class VideoEditingActivity : AppCompatActivity() {
         btnClose?.setBounceClickListener {
             if (!canvasView.isEmpty()) {
                 MaterialAlertDialogBuilder(this)
-                    .setTitle("Discard Handwriting?")
-                    .setMessage("Are you sure you want to discard your drawing?")
+                    .setTitle(R.string.discard_handwriting)
+                    .setMessage(R.string.discard_drawing_msg)
                     .setPositiveButton("Discard") { _, _ -> closeHandwritingMode() }
                     .setNegativeButton("Keep Editing", null)
                     .show()
@@ -3037,7 +3037,7 @@ class VideoEditingActivity : AppCompatActivity() {
     private fun saveAndCommitHandwriting() {
         val canvasView = findViewById<HandwritingCanvasView>(R.id.handwritingCanvasView) ?: return
         if (canvasView.isEmpty()) {
-            Toast.makeText(this, "Scribble or draw something first!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.draw_first), Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -3054,7 +3054,7 @@ class VideoEditingActivity : AppCompatActivity() {
 
         val bitmap = canvasView.exportToBitmap(targetWidth, targetHeight)
         if (bitmap == null) {
-            Toast.makeText(this, "Failed to render drawing", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.failed_render_drawing), Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -3083,12 +3083,12 @@ class VideoEditingActivity : AppCompatActivity() {
 
             viewModel.addOperation(overlayOp)
             closeHandwritingMode()
-            Toast.makeText(this, "Handwriting layer added to timeline", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.handwriting_added), Toast.LENGTH_SHORT).show()
 
             viewModel.project.value?.let { renderTracks(it) }
 
         } catch (e: Exception) {
-            Toast.makeText(this, "Error saving handwriting: ${e.localizedMessage}", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.error_saving_handwriting, e.localizedMessage), Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -3277,7 +3277,7 @@ class VideoEditingActivity : AppCompatActivity() {
                     }
                     
                     isRecordingVoiceOver = true
-                    tvStatus.text = "Recording... Tap to stop"
+                    tvStatus.text = getString(R.string.recording_stop)
                     btnToggle.backgroundTintList = android.content.res.ColorStateList.valueOf(android.graphics.Color.parseColor("#FF4081"))
                     
                     rippleAnimator.start()
@@ -3323,7 +3323,7 @@ class VideoEditingActivity : AppCompatActivity() {
                     btnPlayPause.setImageResource(R.drawable.ic_play_24)
                 }
                 
-                tvStatus.text = "Tap to start recording"
+                tvStatus.text = getString(R.string.recording_start)
                 btnToggle.backgroundTintList = null // Reset tint
                 
                 // Add to audio layer — only when the recording actually produced audio
@@ -3463,7 +3463,7 @@ class VideoEditingActivity : AppCompatActivity() {
             try {
                 startActivityForResult(intent, PICK_SRT_REQUEST)
             } catch (e2: android.content.ActivityNotFoundException) {
-                Toast.makeText(this, "No app found to handle this action", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.no_app_action), Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -3477,7 +3477,7 @@ class VideoEditingActivity : AppCompatActivity() {
         try {
             startActivityForResult(intent, PICK_BACKGROUND_IMAGE_REQUEST)
         } catch (e: Exception) {
-            Toast.makeText(this, "No app found to handle image selection", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.no_app_image), Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -3530,7 +3530,7 @@ class VideoEditingActivity : AppCompatActivity() {
                     try {
                         startActivityForResult(intent, PICK_IMAGE_REQUEST)
                     } catch (e2: android.content.ActivityNotFoundException) {
-                        Toast.makeText(this@VideoEditingActivity, "No app found to handle this action", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@VideoEditingActivity, getString(R.string.no_app_action), Toast.LENGTH_SHORT).show()
                     }
                 }
             }
@@ -3694,12 +3694,12 @@ class VideoEditingActivity : AppCompatActivity() {
             val slider = toolbar.findViewById<Slider>(R.id.imageRotationSlider)
             val tvValue = toolbar.findViewById<TextView>(R.id.tvImageRotationValue)
             slider?.value = 0f
-            tvValue?.text = "0°"
+            tvValue?.text = getString(R.string.str_0_1)
 
             val opacitySlider = toolbar.findViewById<Slider>(R.id.imageOpacitySlider)
             val tvOpacityValue = toolbar.findViewById<TextView>(R.id.tvImageOpacityValue)
             opacitySlider?.value = 100f
-            tvOpacityValue?.text = "100%"
+            tvOpacityValue?.text = getString(R.string.str_100)
 
             toolbar.findViewById<View>(R.id.imageOpacitySliderRow)?.visibility = View.GONE
             toolbar.findViewById<View>(R.id.imageRotationSliderRow)?.visibility = View.VISIBLE
@@ -3964,7 +3964,7 @@ class VideoEditingActivity : AppCompatActivity() {
                 }
             } else {
                 trimTrack?.setRange(maxMs, 0, maxMs)
-                tvTrimValue?.text = "Unknown duration"
+                tvTrimValue?.text = getString(R.string.unknown_duration)
             }
         }
         if (::player.isInitialized && player.isPlaying) {
@@ -4216,7 +4216,7 @@ class VideoEditingActivity : AppCompatActivity() {
         updateCropUi(currentRatio)
         resetCropPreview()
 
-        if (currentRatio == "Custom" && cropOp != null) {
+        if (currentRatio == getString(R.string.custom_badge) && cropOp != null) {
             cropOverlayView?.setCropBounds(
                 cropOp.xFraction,
                 cropOp.yFraction,
@@ -4655,7 +4655,7 @@ class VideoEditingActivity : AppCompatActivity() {
             "2:3" to Triple(R.id.bg2_3, R.id.ic2_3, R.id.txt2_3),
             "21:9" to Triple(R.id.bg21_9, R.id.ic21_9, R.id.txt21_9),
             "Original" to Triple(R.id.bgOriginal, R.id.icOriginal, R.id.txtOriginal),
-            "Custom" to Triple(R.id.bgCustom, R.id.icCustom, R.id.txtCustom)
+            getString(R.string.custom_badge) to Triple(R.id.bgCustom, R.id.icCustom, R.id.txtCustom)
         )
 
         ratios.forEach { (key, views) ->
@@ -4672,7 +4672,7 @@ class VideoEditingActivity : AppCompatActivity() {
             }
         }
 
-        cropOverlayView?.visibility = if (ratio == "Custom") View.VISIBLE else View.GONE
+        cropOverlayView?.visibility = if (ratio == getString(R.string.custom_badge)) View.VISIBLE else View.GONE
     }
 
     private fun splitSelectedVideo() {
@@ -4702,7 +4702,7 @@ class VideoEditingActivity : AppCompatActivity() {
         }
 
         if (targetIndex == null || targetIndex !in sequenceItems.indices) {
-            Toast.makeText(this, "Position the playhead stem over a clip to split", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.position_split), Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -4710,7 +4710,7 @@ class VideoEditingActivity : AppCompatActivity() {
         val clipEndGlobal = clipStartGlobal + item.trimmedDurationMs
 
         if (globalPos <= clipStartGlobal + 50L || globalPos >= clipEndGlobal - 50L) {
-            Toast.makeText(this, "Position the playhead stem inside the clip to split", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.position_split_inside), Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -4721,7 +4721,7 @@ class VideoEditingActivity : AppCompatActivity() {
         selectedVideoIndex = null
         exitVideoEditingMode()
         viewModel.project.value?.let { renderTracks(it) }
-        Toast.makeText(this, "Clip split at stem", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, getString(R.string.clip_split), Toast.LENGTH_SHORT).show()
     }
     
     private fun clearProjectAndShowImportScreen() {
@@ -4970,7 +4970,7 @@ class VideoEditingActivity : AppCompatActivity() {
                 customVideoSeeker.setVideoDuration(totalDuration)
                 timeRulerView.setVideoDuration(totalDuration)
                 updateDurationDisplay(getGlobalPosition().toInt(), totalDuration.toInt())
-                Toast.makeText(this@VideoEditingActivity, "${mergeItems.size} clip(s) added to sequence", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@VideoEditingActivity, getString(R.string.clips_added, mergeItems.size), Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(this@VideoEditingActivity, R.string.toast_failed_to_load_selected_video, Toast.LENGTH_SHORT).show()
             }
@@ -5134,7 +5134,7 @@ class VideoEditingActivity : AppCompatActivity() {
                                     cues = cues
                                 )
                             )
-                            Toast.makeText(this@VideoEditingActivity, "Subtitles added: ${cues.size} captions", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@VideoEditingActivity, getString(R.string.subtitles_added, cues.size), Toast.LENGTH_SHORT).show()
                             updateSubtitlesUi()
                             textOverlayView?.setSubtitleCues(cues)
                         } else {
@@ -5177,7 +5177,7 @@ class VideoEditingActivity : AppCompatActivity() {
                         )
                         updateCanvasBackgroundPreview()
                     } else {
-                        Toast.makeText(this@VideoEditingActivity, "Failed to load image", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@VideoEditingActivity, getString(R.string.failed_load_image), Toast.LENGTH_SHORT).show()
                     }
                 }
             }
@@ -5202,7 +5202,7 @@ class VideoEditingActivity : AppCompatActivity() {
                     try {
                         startActivityForResult(intent, PICK_AUDIO_REQUEST)
                     } catch (e2: android.content.ActivityNotFoundException) {
-                        Toast.makeText(this@VideoEditingActivity, "No app found to handle this action", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@VideoEditingActivity, getString(R.string.no_app_action), Toast.LENGTH_SHORT).show()
                     }
                 }
             }
@@ -5360,7 +5360,7 @@ class VideoEditingActivity : AppCompatActivity() {
                     startService(intent)
                 }
                 
-                Toast.makeText(this@VideoEditingActivity, "Export started in background...", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@VideoEditingActivity, getString(R.string.export_started), Toast.LENGTH_SHORT).show()
 
             } catch (e: Exception) {
                 tempOutputFile?.let { if (it.exists()) it.delete() }
@@ -5521,7 +5521,7 @@ class VideoEditingActivity : AppCompatActivity() {
                             }
                             else -> {
                                 withContext(kotlinx.coroutines.Dispatchers.Main) {
-                                    Toast.makeText(this@VideoEditingActivity, "Audio export failed", Toast.LENGTH_LONG).show()
+                                    Toast.makeText(this@VideoEditingActivity, getString(R.string.audio_export_failed), Toast.LENGTH_LONG).show()
                                     viewModel.exportError("MP3 encoding failed")
                                 }
                                 return@withContext
@@ -5661,7 +5661,7 @@ class VideoEditingActivity : AppCompatActivity() {
             titleView.text = displayName
             pathView.text = customUri.path ?: customUriString
         } else {
-            titleView.text = "LibreCuts (Default)"
+            titleView.text = getString(R.string.default_font)
             pathView.text = if (isAudioOnly) "Music/LibreCuts" else "Movies/LibreCuts"
         }
     }
@@ -5748,7 +5748,7 @@ class VideoEditingActivity : AppCompatActivity() {
         }
 
         if (projectLoadFailed) {
-            Toast.makeText(this, "Failed to load project", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, getString(R.string.failed_load_project), Toast.LENGTH_LONG).show()
             finish()
             return
         }
@@ -7847,10 +7847,10 @@ class VideoEditingActivity : AppCompatActivity() {
         
         if (isMuted) {
             btnMute?.setImageResource(R.drawable.ic_volume_off_24)
-            tvMuteLabel?.text = "Unmute"
+            tvMuteLabel?.text = getString(R.string.unmute)
         } else {
             btnMute?.setImageResource(R.drawable.ic_volume_up_24)
-            tvMuteLabel?.text = "Mute"
+            tvMuteLabel?.text = getString(R.string.mute)
         }
     }
 
@@ -8903,7 +8903,7 @@ class VideoEditingActivity : AppCompatActivity() {
         fun updateSliderForSelection() {
             if (selectedOptionId == "reset") {
                 slider.visibility = View.INVISIBLE
-                valueLabel.text = "Reset All"
+                valueLabel.text = getString(R.string.reset_all)
             } else {
                 slider.visibility = View.VISIBLE
                 val currentVal = getValForOption(selectedOptionId)
@@ -9158,7 +9158,7 @@ class VideoEditingActivity : AppCompatActivity() {
 
         btnEyedropper.setBounceClickListener {
             bottomSheet.hide()
-            Toast.makeText(this@VideoEditingActivity, "Tap a color on the image to pick it", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@VideoEditingActivity, getString(R.string.pick_color), Toast.LENGTH_SHORT).show()
             draggableImageOverlay?.isColorPickingMode = true
             draggableImageOverlay?.onColorPicked = { hex ->
                 selectedColor = hex
@@ -9260,7 +9260,7 @@ class VideoEditingActivity : AppCompatActivity() {
         val toolbar = keyframeEditingToolbar ?: return
         toolbar.visibility = View.VISIBLE
         
-        toolbar.findViewById<Button>(R.id.btnKeyframeProperty)?.text = "Position"
+        toolbar.findViewById<Button>(R.id.btnKeyframeProperty)?.text = getString(R.string.position)
         toolbar.findViewById<View>(R.id.layoutKeyframeSlider)?.visibility = View.GONE
         
         // Seek to overlay start position
@@ -10055,8 +10055,8 @@ class VideoEditingActivity : AppCompatActivity() {
             sliderSize?.value = 100f
             sliderRotation?.value = 0f
             tvFeatherValue?.text = "0%"
-            tvSizeValue?.text = "100%"
-            tvRotationValue?.text = "0°"
+            tvSizeValue?.text = getString(R.string.str_100)
+            tvRotationValue?.text = getString(R.string.str_0_1)
             updateMaskShape(com.tharunbirla.librecuts.models.EditOperation.MaskShape.NONE)
         }
         
