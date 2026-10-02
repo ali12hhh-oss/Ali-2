@@ -347,14 +347,14 @@
     <string name="files_missing_replace">%1$d file(s) missing. Tap clips below to replace.</string>
     <string name="could_not_open_project">Could not open project</string>
     <string name="delete_font">Delete Font</string>
-    <string name="delete_font_msg">Are you sure you want to delete &apos;%1$s&apos;?</string>
+    <string name="delete_font_msg">Are you sure you want to delete font %1$s?</string>
     <string name="font_deleted">Font deleted</string>
     <string name="failed_delete_font">Failed to delete font</string>
     <string name="font_preview">Aa The quick brown fox 123</string>
     <string name="custom_badge">Custom</string>
     <string name="project_saved">Project saved successfully</string>
     <string name="failed_save_project">Failed to save project</string>
-    <string name="font_imported">Font &apos;%1$s&apos; imported</string>
+    <string name="font_imported">Font %1$s imported</string>
     <string name="failed_import_font">Failed to import font file. Must be a valid .ttf or .otf</string>
     <string name="discard_handwriting">Discard Handwriting?</string>
     <string name="discard_drawing_msg">Are you sure you want to discard your drawing?</string>
@@ -411,7 +411,7 @@
     <string name="clips_count">%1$d clips</string>
     <string name="items_count">%1$d items</string>
     <string name="files_count">%1$d files</string>
-    <string name="font_delete_dynamic">Are you sure you want to delete &apos;%1$s&apos;?</string>
+    <string name="font_delete_dynamic">Are you sure you want to delete font %1$s?</string>
     <string name="trim_range">%1$s - %2$s</string>
     <string name="duration_range">%1$s - %2$s (%3$s)</string>
 </resources>
