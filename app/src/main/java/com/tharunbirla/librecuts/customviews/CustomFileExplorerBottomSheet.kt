@@ -217,8 +217,8 @@ class CustomFileExplorerBottomSheet : BottomSheetDialogFragment() {
         val count = selectedNodes.size
         if (count > 0 && isMultiSelect) {
             layoutExplorerBottomBar.visibility = View.VISIBLE
-            tvExplorerSelectedCount.text = "$count file${if (count > 1) "s" else ""} selected"
-            btnExplorerImportSelected.text = "Import ($count)"
+            tvExplorerSelectedCount.text = context.getString(R.string.files_selected, count, if (count > 1) "s" else "")
+            btnExplorerImportSelected.text = context.getString(R.string.import_count, count)
         } else {
             layoutExplorerBottomBar.visibility = View.GONE
         }
