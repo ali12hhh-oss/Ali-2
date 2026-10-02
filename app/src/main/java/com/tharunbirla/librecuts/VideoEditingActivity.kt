@@ -428,7 +428,7 @@ class VideoEditingActivity : AppCompatActivity() {
         override fun onBindViewHolder(holder: FontViewHolder, position: Int) {
             val font = fonts[position]
             holder.tvName.text = font.name
-            holder.tvPreview.text = getString(R.string.font_preview)
+            holder.tvPreview.text = holder.itemView.context.getString(R.string.font_preview)
             if (font.typeface != null) {
                 holder.tvPreview.typeface = font.typeface
             } else {
@@ -437,7 +437,7 @@ class VideoEditingActivity : AppCompatActivity() {
 
             if (font.isCustom) {
                 holder.tvBadge.visibility = View.VISIBLE
-                holder.tvBadge.text = getString(R.string.custom_badge)
+                holder.tvBadge.text = holder.itemView.context.getString(R.string.custom_badge)
                 holder.btnDelete.visibility = View.VISIBLE
                 holder.btnDelete.setOnClickListener { onDelete(font) }
             } else {
