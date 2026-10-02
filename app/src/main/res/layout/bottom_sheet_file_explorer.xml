@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:text="Storage File Explorer"
+            android:text="@string/storage_file_explorer"
             android:textColor="@color/colorOnSurface"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -49,7 +49,7 @@
                 style="@style/Widget.Material3.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="36dp"
-                android:text="Select All"
+                android:text="@string/select_all"
                 android:textColor="@color/colorPrimary"
                 android:textSize="12sp"
                 android:paddingHorizontal="8dp"
@@ -88,7 +88,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
-                android:text="All"
+                android:text="@string/all"
                 app:chipIcon="@drawable/ic_layers_24" />
 
             <com.google.android.material.chip.Chip
@@ -96,7 +96,7 @@
                 style="@style/Widget.Material3.Chip.Filter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Videos"
+                android:text="@string/videos"
                 app:chipIcon="@drawable/ic_play_24" />
 
             <com.google.android.material.chip.Chip
@@ -104,7 +104,7 @@
                 style="@style/Widget.Material3.Chip.Filter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Photos"
+                android:text="@string/photos"
                 app:chipIcon="@drawable/ic_image_24" />
 
             <com.google.android.material.chip.Chip
@@ -112,7 +112,7 @@
                 style="@style/Widget.Material3.Chip.Filter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Audio"
+                android:text="@string/audio"
                 app:chipIcon="@drawable/ic_audio_24" />
 
         </com.google.android.material.chip.ChipGroup>
@@ -136,7 +136,7 @@
                 style="@style/Widget.Material3.Chip.Filter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Downloads"
+                android:text="@string/downloads"
                 app:chipIcon="@drawable/ic_folder_24" />
 
             <com.google.android.material.chip.Chip
@@ -144,7 +144,7 @@
                 style="@style/Widget.Material3.Chip.Filter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="DCIM"
+                android:text="@string/dcim"
                 app:chipIcon="@drawable/ic_image_24" />
 
             <com.google.android.material.chip.Chip
@@ -152,7 +152,7 @@
                 style="@style/Widget.Material3.Chip.Filter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Movies"
+                android:text="@string/movies"
                 app:chipIcon="@drawable/ic_play_24" />
 
             <com.google.android.material.chip.Chip
@@ -160,7 +160,7 @@
                 style="@style/Widget.Material3.Chip.Filter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Pictures"
+                android:text="@string/pictures"
                 app:chipIcon="@drawable/ic_image_24" />
 
             <com.google.android.material.chip.Chip
@@ -168,7 +168,7 @@
                 style="@style/Widget.Material3.Chip.Filter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Root Storage"
+                android:text="@string/root_storage"
                 app:chipIcon="@drawable/ic_folder_24" />
 
         </com.google.android.material.chip.ChipGroup>
@@ -202,7 +202,7 @@
             android:layout_marginStart="6dp"
             android:ellipsize="start"
             android:singleLine="true"
-            android:text="/storage/emulated/0"
+            android:text="@string/storage_root_path"
             android:textColor="@color/colorOnSurface"
             android:textSize="13sp"
             android:textStyle="italic" />
@@ -233,7 +233,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Folder is empty."
+            android:text="@string/folder_empty"
             android:textColor="@color/iconSecondary"
             android:textSize="14sp"
             android:visibility="gone" />
@@ -257,7 +257,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="0 files selected"
+            android:text="@string/files_selected_zero"
             android:textColor="@color/colorOnSurface"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -266,7 +266,7 @@
             android:id="@+id/btnExplorerImportSelected"
             android:layout_width="wrap_content"
             android:layout_height="42dp"
-            android:text="Import (0)"
+            android:text="@string/import_zero"
             android:textColor="@color/onPrimaryContainer"
             android:backgroundTint="@color/colorPrimary"
             app:cornerRadius="12dp"
