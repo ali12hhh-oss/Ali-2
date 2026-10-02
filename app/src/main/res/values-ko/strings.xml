@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Prodline AI</string>
+    <string name="app_title">동영상 편집기</string>
+    <string name="home_tagline">다음 편집을 지금 시작하세요.</string>
+    <string name="open_project">프로젝트 열기</string>
+    <string name="new_project_title">새 프로젝트</string>
+    <string name="new_project_subtitle">동영상, 사진 또는 오디오를 가져와 편집 시작</string>
+    <string name="btn_open_project">프로젝트 열기</string>
+    <string name="drafts_section">초안</string>
+    <string name="settings">설정</string>
+    <string name="tab_home">홈</string>
+    <string name="tab_settings">설정</string>
+    <string name="tab_about">정보</string>
+    <string name="btn_change_language">언어</string>
+    <string name="str_app_language">앱 언어</string>
+    <string name="str_system_default">시스템 기본값</string>
+    <string name="str_new_project">새 프로젝트</string>
+    <string name="str_text">텍스트</string>
+    <string name="str_overlay">오버레이</string>
+    <string name="str_audio">오디오</string>
+    <string name="str_voice">음성</string>
+    <string name="str_subtitles">자막</string>
+    <string name="str_crop">자르기</string>
+    <string name="str_adjust">조정</string>
+    <string name="str_filters">필터</string>
+    <string name="str_speed">속도</string>
+    <string name="str_export_settings">내보내기 설정</string>
+    <string name="export">내보내기</string>
+    <string name="delete">삭제</string>
+    <string name="cancel">취소</string>
+    <string name="done">완료</string>
+    <string name="save">저장</string>
+    <string name="str_save">저장</string>
+    <string name="str_settings">설정</string>
+    <string name="next">다음</string>
+    <string name="apply">적용</string>
+    <string name="reset">초기화</string>
+    <string name="close">닫기</string>
+</resources>
