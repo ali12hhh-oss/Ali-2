@@ -107,7 +107,7 @@ class ProjectImportActivity : AppCompatActivity() {
                         val reqStr = formatDuration(requiredDurationMs)
                         val upStr = formatDuration(uploadedDurationMs)
                         com.google.android.material.dialog.MaterialAlertDialogBuilder(this@ProjectImportActivity)
-                            .setTitle("Clip Duration Warning")
+                            .setTitle(R.string.clip_duration_warning)
                             .setMessage("Selected clip ($upStr) is shorter than required ($reqStr). Do you want to use it anyway?")
                             .setPositiveButton("Use Anyway") { _, _ ->
                                 dep.currentUri = uri
