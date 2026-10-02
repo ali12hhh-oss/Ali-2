@@ -57,7 +57,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Oops! We hit a snag."
+                android:text="@string/error_oops"
                 android:textSize="28sp"
                 android:textStyle="bold"
                 android:textColor="@color/textColor"
@@ -67,7 +67,7 @@
                 android:id="@+id/tvErrorCode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Error Code: LC-500"
+                android:text="@string/error_code"
                 android:textSize="16sp"
                 android:textColor="@color/colorPrimary"
                 android:fontFamily="monospace"
@@ -78,7 +78,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="What happened:"
+                android:text="@string/what_happened"
                 android:textColor="@color/iconSecondary"
                 android:textSize="14sp"
                 android:textStyle="bold"
@@ -99,7 +99,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="16dp"
-                    android:text="The application encountered an unexpected issue while processing your request."
+                    android:text="@string/unexpected_error"
                     android:textColor="@color/textColor"
                     android:textSize="15sp" />
             </com.google.android.material.card.MaterialCardView>
@@ -108,7 +108,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Device Info:"
+                android:text="@string/device_info"
                 android:textColor="@color/iconSecondary"
                 android:textSize="14sp"
                 android:textStyle="bold"
@@ -134,7 +134,7 @@
                         android:id="@+id/tvAppVersion"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="App Version: 1.0-beta"
+                        android:text="@string/app_version_label"
                         android:textColor="@color/textColor"
                         android:textSize="14sp"
                         android:layout_marginBottom="4dp" />
@@ -143,7 +143,7 @@
                         android:id="@+id/tvDeviceModel"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Device: Google Pixel 6"
+                        android:text="@string/device_label"
                         android:textColor="@color/textColor"
                         android:textSize="14sp"
                         android:layout_marginBottom="4dp" />
@@ -152,7 +152,7 @@
                         android:id="@+id/tvAndroidVersion"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Android Version: 14"
+                        android:text="@string/android_version_label"
                         android:textColor="@color/textColor"
                         android:textSize="14sp" />
                 </LinearLayout>
@@ -162,7 +162,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Details:"
+                android:text="@string/details"
                 android:textColor="@color/iconSecondary"
                 android:textSize="14sp"
                 android:textStyle="bold"
@@ -188,7 +188,7 @@
                         android:id="@+id/tvErrorLog"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Stack trace..."
+                        android:text="@string/stack_trace"
                         android:textColor="@color/iconSecondary"
                         android:fontFamily="monospace"
                         android:textSize="12sp"
@@ -200,7 +200,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Please check if this issue already exists before opening a new one on GitHub."
+                android:text="@string/check_issue_before_report"
                 android:textColor="@color/iconSecondary"
                 android:textSize="13sp"
                 android:gravity="center"
@@ -210,7 +210,7 @@
                 android:id="@+id/btnCopyError"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:text="Copy Error Message"
+                android:text="@string/copy_error_message"
                 app:icon="@drawable/ic_copy_24"
                 app:iconGravity="textStart"
                 app:backgroundTint="@color/surfaceContainerHigh"
@@ -222,7 +222,7 @@
                 android:id="@+id/btnReportGithub"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:text="Report on GitHub"
+                android:text="@string/report_github"
                 app:icon="@drawable/ic_github_24"
                 app:iconGravity="textStart"
                 app:backgroundTint="@color/colorPrimary"
@@ -235,7 +235,7 @@
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:text="Restart App"
+                android:text="@string/restart_app"
                 android:textColor="@color/textColor"
                 app:cornerRadius="12dp" />
 
