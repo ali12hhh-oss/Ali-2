@@ -291,7 +291,7 @@ class CustomFileExplorerBottomSheet : BottomSheetDialogFragment() {
                         file = dir,
                         isDirectory = true,
                         displayName = dir.name,
-                        subtext = context.getString(R.string.items_count, childCount),
+                        subtext = requireContext().getString(R.string.items_count, childCount),
                         uri = Uri.fromFile(dir)
                     )
                 )
