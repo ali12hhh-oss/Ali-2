@@ -11,7 +11,7 @@ concurrency:
   cancel-in-progress: true
 
 permissions:
-  contents: read
+  contents: write
   pull-requests: write
   issues: write
 
@@ -25,6 +25,19 @@ jobs:
           distribution: temurin
           java-version: '17'
       - uses: gradle/actions/setup-gradle@v6
+
+      - name: Complete all app translations
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          python3 -m pip install --disable-pip-version-check deep-translator
+          python3 tools/complete_translations.py
+          if ! git diff --quiet -- app/src/main/res; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add app/src/main/res/values-*/strings.xml
+            git commit -m "Complete translations for all supported languages"
+            git push
+          fi
       - run: chmod +x gradlew
       - name: Assemble debug
         run: ./gradlew assembleDebug
