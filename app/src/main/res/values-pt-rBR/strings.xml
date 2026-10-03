@@ -110,7 +110,7 @@
     <string name="toast_beats_cleared">Beats cleared</string>
     <string name="toast_analyzing_beats">Analyzing beats…</string>
     <string name="toast_no_clear_beats_found">No clear beats found.</string>
-    <string name="toast_drag_the_handles_on_the_timeli">Drag the handles on the timeline's main video track to trim.</string>
+    <string name="toast_drag_the_handles_on_the_timeli">Drag the handles on the timeline main video track to trim.</string>
     <string name="toast_failed_to_start_recording">Failed to start recording</string>
     <string name="toast_subtitles_removed">Subtitles removed</string>
     <string name="toast_failed_to_load_overlay_file">Failed to load overlay file</string>
