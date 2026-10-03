@@ -6435,7 +6435,6 @@ class VideoEditingActivity : AppCompatActivity() {
                 val totalDuration = getTotalSequenceDuration()
                 applySelectedHomeTemplate(totalDuration)
                 viewModel.project.value?.let { renderTracks(it) }
-                val totalDuration = getTotalSequenceDuration()
                 customVideoSeeker.setVideoDuration(totalDuration)
                 timeRulerView.setVideoDuration(totalDuration)
                 updateDurationDisplay(0, totalDuration.toInt())
