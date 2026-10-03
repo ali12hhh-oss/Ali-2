@@ -207,8 +207,8 @@ class MainActivity : AppCompatActivity() {
         val templates = listOf(
             HomeTemplate("reels", getString(R.string.template_reels), getString(R.string.template_reels_desc), R.drawable.ic_clips_24, Color(0xFF5B5FEF)),
             HomeTemplate("story", getString(R.string.template_story), getString(R.string.template_story_desc), R.drawable.ic_image_24, Color(0xFF8B5CF6)),
-            HomeTemplate("vlog", getString(R.string.template_vlog), getString(R.string.template_vlog_desc), R.drawable.ic_video_24, Color(0xFF0EA5E9)),
-            HomeTemplate("travel", getString(R.string.template_travel), getString(R.string.template_travel_desc), R.drawable.ic_location_24, Color(0xFF14B8A6)),
+            HomeTemplate("vlog", getString(R.string.template_vlog), getString(R.string.template_vlog_desc), R.drawable.ic_folder_24, Color(0xFF0EA5E9)),
+            HomeTemplate("travel", getString(R.string.template_travel), getString(R.string.template_travel_desc), R.drawable.ic_image_24, Color(0xFF14B8A6)),
             HomeTemplate("beats", getString(R.string.template_beats), getString(R.string.template_beats_desc), R.drawable.ic_bolt_24, Color(0xFFF59E0B)),
             HomeTemplate("minimal", getString(R.string.template_minimal), getString(R.string.template_minimal_desc), R.drawable.ic_text_24, Color(0xFF64748B))
         )
