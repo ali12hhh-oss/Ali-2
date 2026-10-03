@@ -269,31 +269,51 @@ class ExportService : Service() {
         }
 
         return try {
+            val displayName = "${prefix}${System.currentTimeMillis()}${ext}"
             val contentValues = android.content.ContentValues().apply {
-                put(MediaStore.MediaColumns.DISPLAY_NAME, "${prefix}${System.currentTimeMillis()}$ext")
+                put(MediaStore.MediaColumns.DISPLAY_NAME, displayName)
                 put(MediaStore.MediaColumns.MIME_TYPE, mimeType)
-                if (isAudioOnly) {
-                    put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_MUSIC + "/LibreCuts")
-                } else {
-                    put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_MOVIES + "/LibreCuts")
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    put(
+                        MediaStore.MediaColumns.RELATIVE_PATH,
+                        if (isAudioOnly) Environment.DIRECTORY_MUSIC + "/LibreCuts"
+                        else Environment.DIRECTORY_MOVIES + "/LibreCuts"
+                    )
+                    put(MediaStore.MediaColumns.IS_PENDING, 1)
                 }
             }
-            val collectionUri = if (isAudioOnly) MediaStore.Audio.Media.EXTERNAL_CONTENT_URI else MediaStore.Video.Media.EXTERNAL_CONTENT_URI
+
+            val collectionUri = if (isAudioOnly) {
+                MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
+            } else {
+                MediaStore.Video.Media.EXTERNAL_CONTENT_URI
+            }
+
             val uri = contentResolver.insert(collectionUri, contentValues)
-            uri?.let { pendingUri ->
-                try {
-                    contentResolver.openOutputStream(pendingUri)?.use { output ->
-                        videoFile.inputStream().use { input -> input.copyTo(output) }
-                    } ?: throw IllegalStateException("Could not open the gallery export location")
-                    pendingUri
-                } catch (e: Exception) {
-                    contentResolver.delete(pendingUri, null, null)
-                    throw e
+                ?: throw IllegalStateException("MediaStore could not create the gallery item")
+
+            try {
+                contentResolver.openOutputStream(uri)?.use { output ->
+                    videoFile.inputStream().use { input -> input.copyTo(output) }
+                } ?: throw IllegalStateException("Could not open the gallery export location")
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    val publishValues = android.content.ContentValues().apply {
+                        put(MediaStore.MediaColumns.IS_PENDING, 0)
+                    }
+                    contentResolver.update(uri, publishValues, null, null)
                 }
+                uri
+            } catch (e: Exception) {
+                contentResolver.delete(uri, null, null)
+                throw e
             }
         } catch (e: Exception) {
             Log.e(TAG, "Error saving to default gallery: ${e.message}", e)
-            null
+            throw IllegalStateException(
+                "Failed to publish exported media: ${e.message ?: "unknown storage error"}",
+                e
+            )
         }
     }
 
