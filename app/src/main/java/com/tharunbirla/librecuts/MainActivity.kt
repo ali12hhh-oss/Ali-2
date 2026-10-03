@@ -133,13 +133,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        // Onboarding / Welcome Dialog
-        val prefs = getSharedPreferences("librecuts_prefs", MODE_PRIVATE)
-        val isFirstLaunch = prefs.getBoolean("first_launch_v1", true)
-        if (isFirstLaunch) {
-            showOnboardingDialog(prefs)
-        }
-
         // Handle shared/intent videos (once — recreations must not stack duplicate editors)
         if (savedInstanceState == null) {
             handleIntent(intent)
@@ -482,48 +475,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-    }
-
-    private fun showOnboardingDialog(prefs: android.content.SharedPreferences) {
-        val dialog = android.app.Dialog(this)
-        val view = layoutInflater.inflate(R.layout.dialog_welcome_onboarding, null)
-        dialog.setContentView(view)
-        dialog.setCancelable(false)
-
-        dialog.window?.let { window ->
-            window.setBackgroundDrawableResource(android.R.color.transparent)
-            val lp = window.attributes
-            lp.width = android.view.ViewGroup.LayoutParams.MATCH_PARENT
-            lp.height = android.view.ViewGroup.LayoutParams.WRAP_CONTENT
-            window.attributes = lp
-        }
-
-        val tvVersion = view.findViewById<android.widget.TextView>(R.id.tvOnboardingVersion)
-        try {
-            val pInfo = packageManager.getPackageInfo(packageName, 0)
-            tvVersion.text = getString(R.string.version_format, pInfo.versionName)
-        } catch (_: Exception) {
-            tvVersion.text = getString(R.string.version_format, "1.0-beta5")
-        }
-
-        view.findViewById<View>(R.id.layoutStarGithub)?.setBounceClickListener {
-            openUrl("https://github.com/Vicky8106/Prodline-AI")
-        }
-        view.findViewById<View>(R.id.layoutSponsorGithub)?.setBounceClickListener {
-            openUrl("https://github.com/Vicky8106/Prodline-AI#support")
-        }
-        view.findViewById<View>(R.id.layoutDiscord)?.setBounceClickListener {
-            openUrl("https://discord.gg/gwr3nE7YW")
-        }
-        view.findViewById<View>(R.id.layoutTroubleshooting)?.setBounceClickListener {
-            openUrl("https://github.com/Vicky8106/Prodline-AI#troubleshooting")
-        }
-        view.findViewById<View>(R.id.btnOnboardingGetStarted)?.setBounceClickListener {
-            prefs.edit().putBoolean("first_launch_v1", false).apply()
-            dialog.dismiss()
-        }
-
-        dialog.show()
     }
 
     private fun openUrl(url: String) {
