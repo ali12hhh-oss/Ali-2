@@ -239,13 +239,14 @@ private fun NewProjectCard(onClick: () -> Unit) {
             Box(
                 contentAlignment = Alignment.Center,
                 modifier = Modifier
-                    .size(52.dp)
-                    .background(MaterialTheme.colorScheme.primary, RoundedCornerShape(14.dp))
+                    .size(72.dp)
+                    .background(MaterialTheme.colorScheme.primary, RoundedCornerShape(18.dp))
             ) {
                 Icon(
                     painter = painterResource(R.drawable.ic_add_24),
                     contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onPrimary
+                    tint = Color(0xFF8ED8FF),
+                    modifier = Modifier.size(36.dp)
                 )
             }
             Column {
