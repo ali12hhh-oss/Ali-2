@@ -507,6 +507,16 @@ class VideoEditingActivity : AppCompatActivity() {
     private var voiceOverFile: File? = null
     private var voiceOverStartTimeMs = 0L
 
+    private val requestExportStoragePermissionLauncher = registerForActivityResult(
+        androidx.activity.result.contract.ActivityResultContracts.RequestPermission()
+    ) { granted ->
+        if (granted) {
+            saveAction()
+        } else {
+            viewModel.exportError(getString(R.string.permission_export))
+        }
+    }
+
     private val requestRecordAudioPermissionLauncher = registerForActivityResult(
         androidx.activity.result.contract.ActivityResultContracts.RequestPermission()
     ) { isGranted ->
@@ -5264,6 +5274,14 @@ class VideoEditingActivity : AppCompatActivity() {
                 android.widget.Toast.makeText(this, getString(R.string.permission_export), android.widget.Toast.LENGTH_LONG).show()
                 return
             }
+        }
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P &&
+            androidx.core.content.ContextCompat.checkSelfPermission(
+                this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ) != android.content.pm.PackageManager.PERMISSION_GRANTED
+        ) {
+            requestExportStoragePermissionLauncher.launch(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            return
         }
         commitActiveEditsIfAny()
         if (isShowingPreview) dismissPreview()
