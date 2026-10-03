@@ -85,9 +85,9 @@ class VideoEditingViewModel : ViewModel() {
             else -> Triple("1:1", "vignette", EditOperation.TextAnimation.FADE)
         }
         val textPosition = when (templateId) {
-            "vlog" -> "Bottom Left"
-            "minimal" -> "Center Align"
-            else -> "Center Bottom"
+            "vlog" -> TextPosition.BOTTOM_LEFT
+            "minimal" -> TextPosition.CENTER
+            else -> TextPosition.CENTER_BOTTOM
         }
         val textSize = if (templateId == "minimal") 30 else 40
         val textColor = when (templateId) {
