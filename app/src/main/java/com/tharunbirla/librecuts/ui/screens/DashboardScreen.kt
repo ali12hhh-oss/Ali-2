@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -48,6 +49,8 @@ data class DraftProject(
     val lastModified: Long
 )
 
+data class HomeTemplate(val id: String, val title: String, val subtitle: String, val iconRes: Int, val accent: Color)
+
 data class DashboardUiState(
     val selectedTab: Int = 0,
     val videoFolderLabel: String = "",
@@ -58,11 +61,13 @@ data class DashboardUiState(
     val fullscreenEditor: Boolean = true,
     val encoderHardware: Boolean = true,
     val versionName: String = "",
-    val drafts: List<DraftProject> = emptyList()
+    val drafts: List<DraftProject> = emptyList(),
+    val templates: List<HomeTemplate> = emptyList()
 )
 
 class DashboardCallbacks(
     val onNewProject: () -> Unit,
+    val onTemplateSelected: (HomeTemplate) -> Unit,
     val onOpenProject: () -> Unit,
     val onDraftOpen: (DraftProject) -> Unit,
     val onDraftDelete: (DraftProject) -> Unit,
@@ -155,7 +160,7 @@ private fun HomeContent(uiState: DashboardUiState, callbacks: DashboardCallbacks
         verticalArrangement = Arrangement.spacedBy(14.dp)
     ) {
         item {
-            NewProjectCard(onClick = callbacks.onNewProject)
+            TemplatesSection(uiState.templates, callbacks.onTemplateSelected, callbacks.onNewProject)
         }
         item {
             ActionCard(
@@ -224,48 +229,38 @@ private fun EmptyDraftsCard() {
 }
 
 @Composable
-private fun NewProjectCard(onClick: () -> Unit) {
-    Card(
-        onClick = onClick,
-        shape = RoundedCornerShape(18.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        Row(
-            modifier = Modifier.padding(20.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            Box(
-                contentAlignment = Alignment.Center,
-                modifier = Modifier
-                    .size(72.dp)
-                    .background(MaterialTheme.colorScheme.primary, RoundedCornerShape(18.dp))
-            ) {
-                Icon(
-                    painter = painterResource(R.drawable.ic_add_24),
-                    contentDescription = null,
-                    tint = Color(0xFF8ED8FF),
-                    modifier = Modifier.size(36.dp)
-                )
+private fun TemplatesSection(templates: List<HomeTemplate>, onTemplateSelected: (HomeTemplate) -> Unit, onNewProject: () -> Unit) {
+    Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+        Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+            Column(Modifier.weight(1f)) {
+                Text(stringResource(R.string.home_templates_title), style = MaterialTheme.typography.titleLarge, color = MaterialTheme.colorScheme.onBackground)
+                Text(stringResource(R.string.home_templates_subtitle), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
-            Column {
-                Text(
-                    text = stringResource(R.string.new_project_title),
-                    style = MaterialTheme.typography.titleMedium,
-                    color = MaterialTheme.colorScheme.onPrimaryContainer
-                )
-                Spacer(Modifier.height(2.dp))
-                Text(
-                    text = stringResource(R.string.new_project_subtitle),
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.75f)
-                )
-            }
+            Text(stringResource(R.string.home_templates_see_all), style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary, modifier = Modifier.clickable(onClick = onNewProject))
+        }
+        LazyRow(horizontalArrangement = Arrangement.spacedBy(12.dp), contentPadding = androidx.compose.foundation.layout.PaddingValues(end = 4.dp)) {
+            items(templates, key = { it.id }) { template -> TemplateCard(template) { onTemplateSelected(template) } }
         }
     }
 }
 
+@Composable
+private fun TemplateCard(template: HomeTemplate, onClick: () -> Unit) {
+    Card(onClick = onClick, shape = RoundedCornerShape(18.dp), colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerHigh), modifier = Modifier.size(width = 164.dp, height = 188.dp)) {
+        Column {
+            Box(Modifier.fillMaxWidth().height(118.dp).background(template.accent, RoundedCornerShape(topStart = 18.dp, topEnd = 18.dp)), contentAlignment = Alignment.Center) {
+                Box(Modifier.size(82.dp).background(Color.Black.copy(alpha = 0.18f), RoundedCornerShape(16.dp)), contentAlignment = Alignment.Center) {
+                    Icon(painterResource(template.iconRes), contentDescription = null, tint = Color.White, modifier = Modifier.size(42.dp))
+                }
+            }
+            Column(Modifier.padding(horizontal = 12.dp, vertical = 10.dp)) {
+                Text(template.title, style = MaterialTheme.typography.titleSmall, color = MaterialTheme.colorScheme.onSurface, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                Spacer(Modifier.height(2.dp))
+                Text(template.subtitle, style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 1, overflow = TextOverflow.Ellipsis)
+            }
+        }
+    }
+}
 @Composable
 private fun ActionCard(iconRes: Int, title: String, subtitle: String, onClick: () -> Unit) {
     Card(
