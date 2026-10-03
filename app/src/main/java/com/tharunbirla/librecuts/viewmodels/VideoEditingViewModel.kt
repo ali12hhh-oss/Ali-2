@@ -72,6 +72,53 @@ class VideoEditingViewModel : ViewModel() {
         _hasUnsavedEdits.value = true
     }
 
+    /** Applies a real, editable home template to the current project. */
+    fun applyHomeTemplate(templateId: String, title: String, durationMs: Long) {
+        val safeDuration = durationMs.coerceAtLeast(1000L)
+        val textEnd = minOf(safeDuration, 4500L).coerceAtLeast(1000L)
+        val spec = when (templateId) {
+            "reels" -> Triple("9:16", "warm", EditOperation.TextAnimation.POP)
+            "story" -> Triple("9:16", "vintage", EditOperation.TextAnimation.FADE)
+            "vlog" -> Triple("16:9", "contrast", EditOperation.TextAnimation.SLIDE_UP)
+            "travel" -> Triple("9:16", "warm", EditOperation.TextAnimation.SLIDE_UP)
+            "beats" -> Triple("1:1", "cool", EditOperation.TextAnimation.POP)
+            else -> Triple("1:1", "vignette", EditOperation.TextAnimation.FADE)
+        }
+        val textPosition = when (templateId) {
+            "vlog" -> TextPosition.Bottom Left
+            "minimal" -> TextPosition.Center Align
+            else -> TextPosition.Center Bottom
+        }
+        val textSize = if (templateId == "minimal") 30 else 40
+        val textColor = when (templateId) {
+            "travel" -> "#FFF4D6"
+            "beats" -> "#E8F3FF"
+            else -> "#FFFFFF"
+        }
+        val text = EditOperation.AddText(
+            text = title,
+            fontSize = textSize,
+            position = textPosition,
+            relativeX = if (templateId == "vlog") 0.12f else 0.5f,
+            relativeY = if (templateId == "vlog") 0.88f else 0.82f,
+            color = textColor,
+            startTimeMs = 0L,
+            endTimeMs = textEnd,
+            opacity = 1f,
+            borderThickness = if (templateId == "minimal") 0 else 2,
+            borderColor = "#000000",
+            entryAnimation = spec.third,
+            exitAnimation = if (templateId == "beats") EditOperation.TextAnimation.FADE else EditOperation.TextAnimation.NONE
+        )
+        val crop = EditOperation.Crop(spec.first)
+        val filter = EditOperation.ColorFilter(0, spec.second)
+        executeCommand(
+            com.tharunbirla.librecuts.commands.MutateListCommand("Apply template: $templateId") { ops ->
+                ops + crop + filter + text
+            }
+        )
+    }
+
     fun setExportSettings(resolution: Int, fps: Int, audioOnly: Boolean) {
         _exportResolution.value = resolution
         _exportFps.value = fps
