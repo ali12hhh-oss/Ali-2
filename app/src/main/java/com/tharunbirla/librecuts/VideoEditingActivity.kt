@@ -171,6 +171,7 @@ class VideoEditingActivity : AppCompatActivity() {
 
     // State
     private var videoUri: Uri? = null
+    private var homeTemplateApplied = false
     private var videoFileName: String = ""
     private lateinit var tempInputFile: File
     private var frameExtractionJob: Job? = null
@@ -6431,6 +6432,8 @@ class VideoEditingActivity : AppCompatActivity() {
                     viewModel.addMergeOperation(remainingMergeItems)
                 }
 
+                val totalDuration = getTotalSequenceDuration()
+                applySelectedHomeTemplate(totalDuration)
                 viewModel.project.value?.let { renderTracks(it) }
                 val totalDuration = getTotalSequenceDuration()
                 customVideoSeeker.setVideoDuration(totalDuration)
@@ -6490,6 +6493,23 @@ class VideoEditingActivity : AppCompatActivity() {
         }
     }
 
+    private fun applySelectedHomeTemplate(durationMs: Long) {
+        if (homeTemplateApplied) return
+        val templateId = intent.getStringExtra("TEMPLATE_ID") ?: return
+        val titleRes = when (templateId) {
+            "reels" -> R.string.template_reels
+            "story" -> R.string.template_story
+            "vlog" -> R.string.template_vlog
+            "travel" -> R.string.template_travel
+            "beats" -> R.string.template_beats
+            else -> R.string.template_minimal
+        }
+        homeTemplateApplied = true
+        viewModel.applyHomeTemplate(templateId, getString(titleRes), durationMs)
+        viewModel.project.value?.let { renderTracks(it) }
+        Log.d(TAG, "Applied home template: $templateId")
+    }
+
     private fun initializeVideoData() {
         lifecycleScope.launch {
             try {
@@ -6520,6 +6540,8 @@ class VideoEditingActivity : AppCompatActivity() {
                     if (!hasTrim) {
                         viewModel.updateMainVideoTrim(0L, 3000L)
                     }
+                    applySelectedHomeTemplate(3000L)
+                    viewModel.project.value?.let { renderTracks(it) }
                 } else {
                     val videoFilePath = withContext(Dispatchers.IO) { getFilePathFromUri(targetUri) }
                     if (videoFilePath != null) {
@@ -6561,6 +6583,7 @@ class VideoEditingActivity : AppCompatActivity() {
                         }
 
                         // Now load it into ExoPlayer
+                        applySelectedHomeTemplate(originalMainVideoDurationMs)
                         val mediaItem = com.google.android.exoplayer2.MediaItem.fromUri(Uri.fromFile(tempInputFile))
                         player.setMediaItem(mediaItem)
                         player.prepare()
