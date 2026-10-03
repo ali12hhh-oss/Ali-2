@@ -18,6 +18,8 @@ import com.tharunbirla.librecuts.ui.screens.DashboardCallbacks
 import com.tharunbirla.librecuts.ui.screens.DashboardScreen
 import com.tharunbirla.librecuts.ui.screens.DashboardUiState
 import com.tharunbirla.librecuts.ui.screens.DraftProject
+import com.tharunbirla.librecuts.ui.screens.HomeTemplate
+import androidx.compose.ui.graphics.Color
 import com.tharunbirla.librecuts.ui.theme.ProdlineTheme
 import com.tharunbirla.librecuts.utils.setBounceClickListener
 import android.view.View
@@ -149,6 +151,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun dashboardCallbacks() = DashboardCallbacks(
         onNewProject = { selectVideo() },
+        onTemplateSelected = { template -> selectVideo(template.id) },
         onOpenProject = { openProjectLauncher.launch(arrayOf("*/*")) },
         onDraftOpen = { draft -> openDraft(draft) },
         onDraftDelete = { draft -> deleteDraft(draft) },
@@ -201,6 +204,15 @@ class MainActivity : AppCompatActivity() {
             "v1.0-beta5"
         }
 
+        val templates = listOf(
+            HomeTemplate("reels", getString(R.string.template_reels), getString(R.string.template_reels_desc), R.drawable.ic_clips_24, Color(0xFF5B5FEF)),
+            HomeTemplate("story", getString(R.string.template_story), getString(R.string.template_story_desc), R.drawable.ic_image_24, Color(0xFF8B5CF6)),
+            HomeTemplate("vlog", getString(R.string.template_vlog), getString(R.string.template_vlog_desc), R.drawable.ic_video_24, Color(0xFF0EA5E9)),
+            HomeTemplate("travel", getString(R.string.template_travel), getString(R.string.template_travel_desc), R.drawable.ic_location_24, Color(0xFF14B8A6)),
+            HomeTemplate("beats", getString(R.string.template_beats), getString(R.string.template_beats_desc), R.drawable.ic_bolt_24, Color(0xFFF59E0B)),
+            HomeTemplate("minimal", getString(R.string.template_minimal), getString(R.string.template_minimal_desc), R.drawable.ic_text_24, Color(0xFF64748B))
+        )
+
         return DashboardUiState(
             selectedTab = 0,
             videoFolderLabel = videoLabel,
@@ -211,7 +223,8 @@ class MainActivity : AppCompatActivity() {
             fullscreenEditor = prefs.getBoolean("fullscreen_editor", true),
             encoderHardware = (prefs.getString("default_encoder", "hardware") ?: "hardware") == "hardware",
             versionName = versionName,
-            drafts = loadDrafts()
+            drafts = loadDrafts(),
+            templates = templates
         )
     }
 
@@ -377,7 +390,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-    private fun selectVideo() {
+    private fun selectVideo(templateId: String? = null) {
         Log.d("VideoSelection", "Launching media picker.")
         val picker = com.tharunbirla.librecuts.customviews.MediaPickerBottomSheet().apply {
             initialMediaType = com.tharunbirla.librecuts.customviews.MediaPickerBottomSheet.MediaType.ALL
@@ -392,7 +405,7 @@ class MainActivity : AppCompatActivity() {
                         Log.d("VideoSelection", "Could not take persistable permission: ${e.message}")
                     }
                 }
-                navigateToEditingScreen(uris)
+                navigateToEditingScreen(uris, templateId)
             }
             onMediaSelectedListener = { uri ->
                 try {
@@ -400,7 +413,7 @@ class MainActivity : AppCompatActivity() {
                 } catch (e: Exception) {
                     Log.d("VideoSelection", "Could not take persistable permission: ${e.message}")
                 }
-                navigateToEditingScreen(listOf(uri))
+                navigateToEditingScreen(listOf(uri), templateId)
             }
             onBrowseSystemFoldersRequested = {
                 showCustomFolderExplorer()
@@ -430,12 +443,13 @@ class MainActivity : AppCompatActivity() {
         explorer.show(supportFragmentManager, "CustomFileExplorerBottomSheet")
     }
 
-    private fun navigateToEditingScreen(mediaUris: List<Uri>) {
+    private fun navigateToEditingScreen(mediaUris: List<Uri>, templateId: String? = null) {
         if (mediaUris.isEmpty()) return
         Log.d("Navigation", "Navigating to editing screen with ${mediaUris.size} URIs: $mediaUris")
         val intent = Intent(this, VideoEditingActivity::class.java).apply {
             putExtra("VIDEO_URI", mediaUris.first())
             putParcelableArrayListExtra("EXTRA_MEDIA_URIS", ArrayList(mediaUris))
+            if (!templateId.isNullOrEmpty()) putExtra("TEMPLATE_ID", templateId)
             data = mediaUris.first()
             addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         }
