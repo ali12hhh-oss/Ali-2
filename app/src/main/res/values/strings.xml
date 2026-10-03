@@ -414,4 +414,19 @@
     <string name="font_delete_dynamic">Are you sure you want to delete font %1$s?</string>
     <string name="trim_range">%1$s - %2$s</string>
     <string name="duration_range">%1$s - %2$s (%3$s)</string>
+    <string name="home_templates_title">Ready Templates</string>
+    <string name="home_templates_subtitle">Choose a style and start with your media</string>
+    <string name="home_templates_see_all">Custom</string>
+    <string name="template_reels">Reels</string>
+    <string name="template_reels_desc">Fast vertical edit</string>
+    <string name="template_story">Story</string>
+    <string name="template_story_desc">9:16 social story</string>
+    <string name="template_vlog">Vlog</string>
+    <string name="template_vlog_desc">Clean creator style</string>
+    <string name="template_travel">Travel</string>
+    <string name="template_travel_desc">Smooth travel edit</string>
+    <string name="template_beats">Beat Sync</string>
+    <string name="template_beats_desc">Music-driven cuts</string>
+    <string name="template_minimal">Minimal</string>
+    <string name="template_minimal_desc">Simple modern look</string>
 </resources>
