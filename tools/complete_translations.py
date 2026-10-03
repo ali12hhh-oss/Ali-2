@@ -67,7 +67,10 @@ def clean_for_translation(value):
     return value.strip()
 
 def xml_escape(value):
-    return html.escape(value, quote=False)
+    # Android resource values are sensitive to escape handling.
+    # Remove stray backslashes and encode apostrophes as XML entities.
+    value = re.sub(r"\\(?![nrt\\\"'u])", "", value)
+    return html.escape(value, quote=False).replace("'", "&apos;")
 
 def translate_missing(missing, target):
     if not missing:
